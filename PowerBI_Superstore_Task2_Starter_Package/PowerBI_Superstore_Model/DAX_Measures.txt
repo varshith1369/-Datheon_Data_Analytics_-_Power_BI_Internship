@@ -1,0 +1,30 @@
+-- Create these measures in Power BI (Modeling > New measure)
+Total Sales = SUM(FactOrders[Sales])
+
+Total Profit = SUM(FactOrders[Profit])
+
+Total Quantity = SUM(FactOrders[Quantity])
+
+Total Orders = DISTINCTCOUNT(FactOrders[Order ID])
+
+Profit Margin % = DIVIDE([Total Profit], [Total Sales], 0)
+
+Average Order Value = DIVIDE([Total Sales], [Total Orders], 0)
+
+Sales PY =
+CALCULATE(
+    [Total Sales],
+    SAMEPERIODLASTYEAR(DimDate[Date])
+)
+
+YoY Sales Growth % =
+DIVIDE([Total Sales] - [Sales PY], [Sales PY], 0)
+
+Profit PY =
+CALCULATE(
+    [Total Profit],
+    SAMEPERIODLASTYEAR(DimDate[Date])
+)
+
+YoY Profit Growth % =
+DIVIDE([Total Profit] - [Profit PY], [Profit PY], 0)
